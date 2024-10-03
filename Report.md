@@ -108,6 +108,68 @@ MPI_Gatherv(sorted_chunk, root)
 MPI_Finalize()
 ```
 
+Merge Sort Psuedocode
+```
+MPI_INIT()
+MPI_COMM_SIZE(comm, num_procs) 
+MPI_COMM_RANK(comm, rank)
+
+Starttime = MPI_WTIME()
+
+Merge(left, right):
+	result = empty array
+	i = 0
+	j = 0
+	
+	while i < len(left) and j < len(right):
+		if left[i] < right[j]:
+			append left[i] to result
+			i += 1
+		else: 
+			append right[j] to result
+			j += 1
+		append left[i to length] to result
+		append right[j to length] to result
+	return result
+
+MergeSort(arr):
+	if len(arr) <= 1:
+		return arr
+	middle = len(arr) / 2
+	left = arr[0 to middle]
+	right = arr[middle to end]
+	sortLeft = MergeSort(left)
+	sortRight = MergeSort(right)
+
+	return merge(sortLeft, sortRight)
+
+MPI_Mergesort(arr):
+	Comm = MPI.COMM_WORLD
+	rank = comm.Get_rank()
+	size = comm.Get_size()
+	split = []
+	
+	if rank == 0:
+		split = list of arrays from splitting array into chunks with each sublist starting forms successive indices and containing every element in position (initial + multiples of size)
+	
+	Chunk = comm.scatter(split, root = 0)
+
+	sorted = Mergesort(chunk)
+
+	gather = comm.gather(sorted, root = 0)
+
+	If rank == 0:
+		while len(gather) > 1:
+			gather[0] = merge(gather[0], gather.pop())
+		
+		complete = gather[0]
+		Print(complete)
+
+main():
+	MPI.Mergesort(some arr)
+
+```
+
 Radix Sort Pseudocode
 ```
 countSort(arr, digit):
