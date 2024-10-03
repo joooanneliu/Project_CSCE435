@@ -107,6 +107,49 @@ MPI_Gatherv(sorted_chunk, root)
 ```
 MPI_Finalize()
 ```
+
+Radix Sort Pseudocode
+```
+countSort(arr, digit):
+	// digit = ones (1), tens (2), hundreds(3)....
+	output = int[arr.size()]
+	count = int[10]
+	for int i = 0 to arr.size() - 1:
+		count[ digit of arr[i] ]++;
+	
+	for int i = 1 to 9:
+		count[i] = count[i-1] + count[i]
+	
+	For int i = 0 to int[arr.size]:
+		output[count[digit of arr[i]] - 1] = arr[i]
+		count[digit of arr[i]]--;
+	return output;
+radixSort(arr):
+	maxNum = arr[0]	
+	for i = 1 to arr.size() - 1:
+		update maxNum if larger
+	
+	maxDigits = number of digits in maxNum
+	for i = 1 to maxDigits:
+		arr = countSort(arr, i)
+	return arr
+Main: 
+	mpi_init()
+	rank = Get the rank of the current process
+	num_procs = total number of processes 
+	startTime = mpi_Wtime()
+	
+	if rank = 0 // master process
+		n = length of data
+		split data into subarrays for each process and send with mpi_send
+	else: // worker processes
+	    	receive subarray from the master process with mpi_recv
+		subarray = radix_sort(subarray)
+		mpi_send the subarray back to master process
+	Duration = mpi_Wtime() - startTime
+	mpi_finialize()
+
+```
 ### 2c. Evaluation plan - what and how will you measure and compare
 We will keep a constant problem size while increasing the number of processors/nodes from [2, 4, 8, 16, 32, 64, 128] and then compare the MPI_Wtimes and Caliper times using Thicket.
 
