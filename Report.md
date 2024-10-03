@@ -51,8 +51,63 @@ Duration =  MPI_WTIME() - Starttime
 MPI_FINALIZE()
 ```
 
+#### Sample Sort Pseudocode:
+##### 1. Initialize MPI environment
+```
+MPI_Init()
+rank ← MPI_Comm_rank(MPI_COMM_WORLD)
+P ← MPI_Comm_size(MPI_COMM_WORLD)
+```
+##### 2. Distribute data among P processes
+```
+IF rank == 0 THEN
+   Divide data into P chunks
+   Send each chunk to corresponding process
+END IF
+MPI_Scatterv(data, chunk)
+```
+##### 3. Perform local sort on each process
+```
+Local_Sort(chunk)
+```
+##### 4. Select local samples
+```
+s ← P - 1
+local_samples ← Select s evenly spaced elements from chunk
+```
+##### 5. Gather local samples to root process
+```
+MPI_Gather(local_samples, root)
+```
+##### 6. Root process selects global pivots
+```
+IF rank == 0 THEN
+   merged_samples ← Merge(local_samples from all processes)
+   pivots ← Select P-1 evenly spaced elements from merged_samples
+END IF
+MPI_Bcast(pivots)
+```
+##### 7. Partition local data based on pivots
+```
+partitions ← Partition(chunk, pivots)
+```
+##### 8. Perform all-to-all data exchange
+```
+MPI_Alltoall(partitions, received_partitions)
+```
+##### 9. Locally sort the received data
+```
+sorted_chunk ← Local_Sort(received_partitions)
+```
+##### 10. Gather sorted data to root process
+```
+MPI_Gatherv(sorted_chunk, root)
+```
+##### 11. Finalize MPI environment
+```
+MPI_Finalize()
+```
 ### 2c. Evaluation plan - what and how will you measure and compare
 We will keep a constant problem size while increasing the number of processors/nodes from [2, 4, 8, 16, 32, 64, 128] and then compare the MPI_Wtimes and Caliper times using Thicket.
 
 We will also test by keeping the number of processors/nodes constant while increasing the problem size from [128, 16384, 1048576] with randomized values and then compare the MPI_Wtimes and Caliper times using Thicket.
-
