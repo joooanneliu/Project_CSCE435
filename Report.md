@@ -216,3 +216,8 @@ Main:
 We will keep a constant problem size while increasing the number of processors/nodes from [2, 4, 8, 16, 32, 64, 128] and then compare the MPI_Wtimes and Caliper times using Thicket.
 
 We will also test by keeping the number of processors/nodes constant while increasing the problem size from [128, 16384, 1048576] with randomized values and then compare the MPI_Wtimes and Caliper times using Thicket.
+
+### 3. Algorithm Description / Questions:
+#### Simon: Bitonic Sort
+The code described in bitonic.cpp in the bitonic child directory is an implementation of Bitonic Sort using MPI, Adiak, and Caliper. The code is heavily modeled off of the psuedocode shown in the above section that there are the follow functions: bitonicsort and bitonicmerge. Aside from that there are also the correctnessCheck function, iterating over the final array to see if it sorting was successful, and the mpiBitonicMerge function which manages communications. Since there are not multiple stages for communcation and computation, only comm_large and comp_large are present in the comm and comp sections respectively. On runtime, arrays are filled with randomly generated integers using the random library, ranging from 1-100 inclusive. 
+
