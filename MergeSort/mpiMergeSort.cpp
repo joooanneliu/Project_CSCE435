@@ -9,7 +9,7 @@
 
 std::vector<int> Merge(const std::vector<int>& left, const std::vector<int>& right)
 {
-    std::vector<int> result;
+  std::vector<int> result;
 	int i = 0;
     int j = 0;
 	
@@ -70,10 +70,6 @@ int main(int argc, char** argv)
 		return 0;
 	}
 
-	const char* whole_computation = "whole_computation";
-	const char* scatter = "scatter";
-	const char* calculation = "calculation";
-	const char* gather = "gather";
 
 	MPI_Init(&argc, &argv);
 	int rank;
@@ -84,13 +80,10 @@ int main(int argc, char** argv)
 	cali::ConfigManager mgr;
 	mgr.start();
 
-	CALI_MARK_BEGIN(whole_computation);
-
-	CALI_MARK_BEGIN(scatter);
-
+	
 	std::vector<int> toSort;
 	
-
+  CALI_MARK_BEGIN("data_init_runtime");
 	if (rank == 0)
 	{
 		toSort.resize(n);
@@ -98,39 +91,47 @@ int main(int argc, char** argv)
 		{
 			toSort[i] = rand() % 100;
 		}
-   
-    for (int i = 0; i < toSort.size(); i++)
-	  {
-	    std::cout << toSort[i] << " ";
-	  }
-    std::cout << std::endl;
 	}
+   CALI_MARK_END("data_init_runtime");
 
 	int chunkSize = n / size;
 	std::vector<int> local(chunkSize);
+ 
+  CALI_MARK_BEGIN("comm");
+  CALI_MARK_BEGIN("comm_large");
 
 	MPI_Scatter(toSort.data(), chunkSize, MPI_INT, local.data(), chunkSize, MPI_INT, 0, MPI_COMM_WORLD);
-
-	CALI_MARK_END(scatter);
-
-	CALI_MARK_BEGIN(calculation);
-
+ 
+  CALI_MARK_END("comm_large");
+  CALI_MARK_END("comm");
+  
+  CALI_MARK_BEGIN("comp");
+  CALI_MARK_BEGIN("comp_large");
+  
 	std::vector<int> localSort = MergeSort(local);
 
-	CALI_MARK_END(calculation);
-
-	CALI_MARK_BEGIN(gather);
-
+  CALI_MARK_END("comp_large");
+  CALI_MARK_END("comp");
+  
 	std::vector<int> sorted;
   if (rank == 0)
   {
     sorted.resize(n);
   }
 
+  CALI_MARK_BEGIN("comm");
+  CALI_MARK_BEGIN("comm_large");
+  
 	MPI_Gather(localSort.data(), chunkSize, MPI_INT, sorted.data(), chunkSize, MPI_INT, 0, MPI_COMM_WORLD);
+ 
+  CALI_MARK_END("comm_large");
+  CALI_MARK_END("comm");
 
 	if (rank == 0)
 	{
+    CALI_MARK_BEGIN("comp");
+    CALI_MARK_BEGIN("comp_large");
+    
 		std::vector<int> result = sorted;
 		for (int i = 1; i < size; i++)
 		{
@@ -139,6 +140,10 @@ int main(int argc, char** argv)
       result = Merge(left, right);
 		}
    
+    CALI_MARK_END("comp_large");
+    CALI_MARK_END("comp");
+   
+    CALI_MARK_BEGIN("correctness_check");
     if (correctSort(result))
 	  {
 		  std::cout << "Correct Result" << std::endl;
@@ -147,6 +152,7 @@ int main(int argc, char** argv)
 	  {
 		  std::cout << "Failed" << std::endl;
 	  }
+    CALI_MARK_END("correctness_check");
      
     for (int i = 0; i < result.size(); i++)
 	  {
@@ -155,10 +161,21 @@ int main(int argc, char** argv)
     std::cout << std::endl;
 	}
 
-	CALI_MARK_END(gather);
-
-
-	CALI_MARK_END(whole_computation);
+  adiak::init(NULL);
+  adiak::launchdate();    // launch date of the job
+  adiak::libraries();     // Libraries used
+  adiak::cmdline();       // Command line used to launch the job
+  adiak::clustername();   // Name of the cluster
+  adiak::value("algorithm", "merge"); // The name of the algorithm you are using (e.g., "merge", "bitonic")
+  adiak::value("programming_model", "mpi"); // e.g. "mpi"
+  adiak::value("data_type", "int"); // The datatype of input elements (e.g., double, int, float)
+  adiak::value("size_of_data_type", sizeof(int)); // sizeof(datatype) of input elements in bytes (e.g., 1, 2, 4)
+  adiak::value("input_size", n); // The number of elements in input dataset (1000)
+  adiak::value("input_type", "Random"); // For sorting, this would be choices: ("Sorted", "ReverseSorted", "Random", "1_perc_perturbed")
+  adiak::value("num_procs", 16); // The number of processors (MPI ranks)
+  adiak::value("scalability", "strong"); // The scalability of your algorithm. choices: ("strong", "weak")
+  adiak::value("group_num", 4); // The number of your group (integer, e.g., 1, 10)
+  adiak::value("implementation_source", "ai"); // Where you got the source code of your algorithm. choices: ("online", "ai", "handwritten").
 
 	mgr.stop();
    	mgr.flush();
