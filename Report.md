@@ -228,6 +228,8 @@ The radixSort.cpp in the RadixSort folder is modified from the lab 2 matrix mult
 The files in the MergeMort directory is an implementation of merge sort that is based off of the psuedocode for mergesort above and utilizes MPI, adiak, and Caliper in order to achieve parallel sorting. Aside from the main, merge, and mergesort functions, there is also a correctsort function which validates whether the array was sorted correctly by checking whether the array is in increasing order. Since operations on done on the array itself, there is only sections for comp_large and comm_large in the implementation. The array size for this implementation is based on the input and the values in the array are randomized.
 
 #### Mrinal: Sample Sort
+<img width="462" alt="image" src="https://github.com/user-attachments/assets/2096f291-a78b-4885-815d-4df6944fe380">
+
 I wrote the implementation of sample sort in sample sort.cpp, which is inside the samplesort folder. It uses MPI, Caliper, and Adiak and is based on the pseudocode written in the precious section. It starts off by creating an array of random values(0-999) and then performing the sample sort algorithm on the array; it finally checks if the array is correctly sorted at the end. The algorithm has many different stages of communication as it has to broadcast and receive the pivot points from each process. It also performs many computation functions by sorting the array in the processes using the pivots. I used vectors as they were easier to use compared to arrays and had the built-in sort function that I could use when sorting the chunks. 
 
 ### 4. Performance Evaluation
