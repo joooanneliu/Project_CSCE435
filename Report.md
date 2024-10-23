@@ -236,3 +236,6 @@ I wrote the implementation of sample sort in sample sort.cpp, which is inside th
 
 #### Joanne: Radix Sort
 I was not able to complete all the runs for the array sizes. I was only able to get all of the processes for 2^26 and 2^24, so I can confirm that the code works. For the other way array sizes, the jobs were all stuck in the queue, so I will finish them before the presentation. Currently, I have maximum, minimum, average and variance number of processes v. overall run time (main) graphs, as well as average run times for comm and comp time, for the two finished array sizes. 
+
+#### Nathan: Merge Sort
+I was not able to complete all of the runs for the higher process counts. I was able to get the combinations of array sizes and types up to 256 processes but the runs for 512 processes and 1024 processes are stuck in the queue so these will have to be done before the presentation. The implementation is confirmed to work however and there are times for minimum, maximum, and average however I am having trouble getting the graphs to show up properly.
