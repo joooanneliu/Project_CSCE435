@@ -4,6 +4,7 @@
 #include <algorithm>
 #include <cstdlib>
 #include <ctime>
+#include <cmath>
 #include <caliper/cali.h>
 #include <adiak.hpp>
 
@@ -20,25 +21,39 @@ bool isSorted(const std::vector<int>& vec) {
 int main(int argc, char** argv) {
     CALI_CXX_MARK_FUNCTION;
     MPI_Init(&argc, &argv);
-    CALI_MARK_BEGIN("main");
 
     int rank, size;
     MPI_Comm_rank(MPI_COMM_WORLD, &rank);
     MPI_Comm_size(MPI_COMM_WORLD, &size);
-
     std::vector<int> data;         // Holds the original data at root process
     std::vector<int> local_data;   // Holds each process's local chunk of data
-    int total_data_size = atoi(argv[1]);     // Total size of data
+    int exponent = atoi(argv[1]);
+    int total_data_size = static_cast<int>(pow(2, exponent));     // Total size of data
     int local_size = total_data_size / size; // Size of data each process will handle
-
+    
+    if (rank == 0){
+        std::cout << "SIZE: " << total_data_size << std::endl;
+    }
+    
     // Data Initialization
     CALI_MARK_BEGIN("data_init_runtime");
     if (rank == 0) {
         data.resize(total_data_size);
         std::srand(std::time(nullptr));
         for (int i = 0; i < total_data_size; ++i) {
+            // data[i] = i; // sorted
             data[i] = std::rand() % 1000; // Random integers between 0 and 999
+            // data[i] = total_data_size - i; // reverse sorted
         }
+        // int swaps = std::max(1, n / 100); // 1% perturbed
+        // for (int i = 0; i < swaps; ++i) {
+        //     int idx1 = std::rand() % n;
+        //     int idx2 = std::rand() % n;
+        //     while (idx1 == idx2) {
+        //         idx2 = std::rand() % n;
+        //     }
+        //     std::swap(data[idx1], data[idx2]);
+        // }
     }
     CALI_MARK_END("data_init_runtime");
 
@@ -46,21 +61,28 @@ int main(int argc, char** argv) {
     local_data.resize(local_size);
 
     // Scatter data to all processes
+    CALI_MARK_BEGIN("comm");
+    CALI_MARK_BEGIN("comm_large");
     MPI_Scatter(data.data(), local_size, MPI_INT, local_data.data(), local_size, MPI_INT, 0, MPI_COMM_WORLD);
+    CALI_MARK_END("comm_large");
+    CALI_MARK_END("comm");
 
     // Step 1: Each process locally sorts its data
     CALI_MARK_BEGIN("comp");
     CALI_MARK_BEGIN("comp_large");
     std::sort(local_data.begin(), local_data.end());
     CALI_MARK_END("comp_large");
-    CALI_MARK_END("comp");
+    
 
     // Step 2: Select `P - 1` evenly spaced samples from each sorted local data
+    CALI_MARK_BEGIN("comp_small");
     int s = size - 1;
     std::vector<int> local_samples(s);
     for (int i = 0; i < s; ++i) {
         local_samples[i] = local_data[i * local_size / s];
     }
+    CALI_MARK_END("comp_small");
+    CALI_MARK_END("comp");
 
     // Step 3: Gather all local samples at the root process
     CALI_MARK_BEGIN("comm");
@@ -70,8 +92,12 @@ int main(int argc, char** argv) {
         gathered_samples.resize(size * s);
     }
     MPI_Gather(local_samples.data(), s, MPI_INT, gathered_samples.data(), s, MPI_INT, 0, MPI_COMM_WORLD);
+    CALI_MARK_END("comm_small");
+    CALI_MARK_END("comm");
 
     // Step 4: Root process selects pivots and broadcasts them
+    CALI_MARK_BEGIN("comp");
+    CALI_MARK_BEGIN("comp_large");
     std::vector<int> pivots(s);
     if (rank == 0) {
         std::sort(gathered_samples.begin(), gathered_samples.end());
@@ -81,10 +107,18 @@ int main(int argc, char** argv) {
             pivots[i] = gathered_samples[(i + 1) * gathered_samples.size() / size];
         }
     }
+    CALI_MARK_END("comp_large");
+    CALI_MARK_END("comp");
+
+    CALI_MARK_BEGIN("comm");
+    CALI_MARK_BEGIN("comm_small");
     MPI_Bcast(pivots.data(), s, MPI_INT, 0, MPI_COMM_WORLD);
     CALI_MARK_END("comm_small");
+    CALI_MARK_END("comm");
 
     // Step 5: Partition local data according to the pivots
+    CALI_MARK_BEGIN("comp");
+    CALI_MARK_BEGIN("comp_large");
     std::vector<std::vector<int>> partitions(size);
     for (int i = 0; i < local_size; ++i) {
         int partition = 0;
@@ -93,8 +127,11 @@ int main(int argc, char** argv) {
         }
         partitions[partition].push_back(local_data[i]);
     }
+    CALI_MARK_END("comp_large");
+    CALI_MARK_END("comp");
 
     // Step 6: All-to-All exchange of partitions
+    CALI_MARK_BEGIN("comm");
     CALI_MARK_BEGIN("comm_large");
     std::vector<int> send_counts(size), recv_counts(size);
     for (int i = 0; i < size; ++i) {
@@ -134,6 +171,8 @@ int main(int argc, char** argv) {
     CALI_MARK_END("comp");
 
     // Step 8: Gather sorted data at root
+    CALI_MARK_BEGIN("comm");
+    CALI_MARK_BEGIN("comm_large");
     std::vector<int> final_data;
     std::vector<int> final_recv_counts(size);
     std::vector<int> final_recv_displs(size);
@@ -151,18 +190,24 @@ int main(int argc, char** argv) {
 
     MPI_Gatherv(recv_buffer.data(), total_recv, MPI_INT, final_data.data(), final_recv_counts.data(),
                 final_recv_displs.data(), MPI_INT, 0, MPI_COMM_WORLD);
+    CALI_MARK_END("comm_large");
+    CALI_MARK_END("comm");
 
     // Step 9: Correctness check
-    CALI_MARK_BEGIN("correctness_check");
+    
     if (rank == 0) {
-        if (isSorted(final_data)) {
+        CALI_MARK_BEGIN("correctness_check");
+        bool valid = isSorted(final_data);
+        CALI_MARK_END("correctness_check");
+
+        if (valid) {
             std::cout << "The data is sorted correctly!" << std::endl;
         } else {
             std::cout << "The data is NOT sorted correctly." << std::endl;
         }
     }
-    CALI_MARK_END("correctness_check");
-
+    
+    
     adiak::init(NULL);
     adiak::launchdate();
     adiak::libraries();
@@ -192,7 +237,6 @@ int main(int argc, char** argv) {
     adiak::value("group_num", group_number);
     adiak::value("implementation_source", implementation_source);
 
-    CALI_MARK_END("main");
     MPI_Finalize();
     return 0;
 }
