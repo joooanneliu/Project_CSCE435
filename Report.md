@@ -229,3 +229,8 @@ The files in the MergeMort directory is an implementation of merge sort that is 
 
 #### Mrinal: Sample Sort
 I wrote the implementation of sample sort in sample sort.cpp, which is inside the samplesort folder. It uses MPI, Caliper, and Adiak and is based on the pseudocode written in the precious section. It starts off by creating an array of random values(0-999) and then performing the sample sort algorithm on the array; it finally checks if the array is correctly sorted at the end. The algorithm has many different stages of communication as it has to broadcast and receive the pivot points from each process. It also performs many computation functions by sorting the array in the processes using the pivots. I used vectors as they were easier to use compared to arrays and had the built-in sort function that I could use when sorting the chunks. 
+
+### 4. Performance Evaluation
+
+#### Joanne: Radix Sort
+I was not able to complete all the runs for the array sizes. I was only able to get all of the processes for 2^26 and 2^24, so I can confirm that the code works. For the other way array sizes, the jobs were all stuck in the queue, so I will finish them before the presentation. Currently, I have maximum, minimum, average and variance number of processes v. overall run time (main) graphs, as well as average run times for comm and comp time, for the two finished array sizes. 
