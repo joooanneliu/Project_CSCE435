@@ -241,3 +241,6 @@ I was not able to complete all the runs for the array sizes. I was only able to 
 
 #### Nathan: Merge Sort
 I was not able to complete all of the runs for the higher process counts. I was able to get the combinations of array sizes and types up to 256 processes but the runs for 512 processes and 1024 processes are stuck in the queue so these will have to be done before the presentation. The implementation is confirmed to work however and there are times for minimum, maximum, and average however I am having trouble getting the graphs to show up properly.
+
+#### Mrinal : Sample Sort
+Due to issues with Grace and the queue, I could not get all 280 Cali files. I was able to get data for all the random sorted 2^16 2^18 2^20 and 2^22. For the other types of data and sizes, the jobs were stuck in the queue or had network issues, so I will fix the issues and finish them before we present. 
