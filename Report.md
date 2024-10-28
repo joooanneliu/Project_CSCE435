@@ -219,13 +219,33 @@ We will also test by keeping the number of processors/nodes constant while incre
 
 ### 3. Algorithm Description / Questions:
 #### Simon: Bitonic Sort
+![image](https://github.com/user-attachments/assets/142b3ed1-bf4e-4d04-aeee-741ae3287742)
+
 The code described in bitonic.cpp in the bitonic child directory is an implementation of Bitonic Sort using MPI, Adiak, and Caliper. The code is heavily modeled off of the psuedocode shown in the above section that there are the follow functions: bitonicsort and bitonicmerge. Aside from that there are also the correctnessCheck function, iterating over the final array to see if it sorting was successful, and the mpiBitonicMerge function which manages communications. Since there are not multiple stages for communcation and computation, only comm_large and comp_large are present in the comm and comp sections respectively. On runtime, arrays are filled with randomly generated integers using the random library, ranging from 1-100 inclusive. 
 
 #### Joanne: Radix Sort
+![image](https://github.com/user-attachments/assets/b4cd0eec-0561-4482-a323-5accc2cb6b92)
+
 The radixSort.cpp in the RadixSort folder is modified from the lab 2 matrix multiplcation file. The calculations parts are replaced by the radix sort and the helper functions, countSort and radixSort, were coded based on the pseudocode. There are also mergeTwo, which merges two arrays, mergeAllSubarrays, which is called after receiving all the subarrays from the worker processes. Another helper function was also added called checkValid, which acts as the correctness check function to check whether the array is properly sorted in the end. There are only comp_large since despite split into subarrays, the entire array is sorted at that block annotated. Communication annotations are split into master_send_receive and worker_send_receive, and both would fall under "comm_large" since the whole array is included in communications. The array size is decided when running the file, and filled with randomly generated integers that range from 1 to 100 inclusively. 
 
 #### Nathan: Merge Sort
+![image](https://github.com/user-attachments/assets/24d60cd0-7f02-47c9-a233-302ee16a75d2)
 The files in the MergeMort directory is an implementation of merge sort that is based off of the psuedocode for mergesort above and utilizes MPI, adiak, and Caliper in order to achieve parallel sorting. Aside from the main, merge, and mergesort functions, there is also a correctsort function which validates whether the array was sorted correctly by checking whether the array is in increasing order. Since operations on done on the array itself, there is only sections for comp_large and comm_large in the implementation. The array size for this implementation is based on the input and the values in the array are randomized.
 
 #### Mrinal: Sample Sort
+<img width="462" alt="image" src="https://github.com/user-attachments/assets/2096f291-a78b-4885-815d-4df6944fe380">
+
 I wrote the implementation of sample sort in sample sort.cpp, which is inside the samplesort folder. It uses MPI, Caliper, and Adiak and is based on the pseudocode written in the precious section. It starts off by creating an array of random values(0-999) and then performing the sample sort algorithm on the array; it finally checks if the array is correctly sorted at the end. The algorithm has many different stages of communication as it has to broadcast and receive the pivot points from each process. It also performs many computation functions by sorting the array in the processes using the pivots. I used vectors as they were easier to use compared to arrays and had the built-in sort function that I could use when sorting the chunks. 
+
+### 4. Performance Evaluation
+#### Simon: Bitonic Sort
+Due to difficulties with the Grace queue, I was unable to gain all 280 cali files. I was able to get data for all of the input types and processors for the smallest size (2^16) as well as a wide variety of other size, processor, input combinations. Before the presentation I will be able gain the remaining cali files, so that I may present my strong scaling, speedup, and weak scaling plots. 
+
+#### Joanne: Radix Sort
+I was not able to complete all the runs for the array sizes. I was only able to get all of the processes for 2^26 and 2^24, so I can confirm that the code works. For the other way array sizes, the jobs were all stuck in the queue, so I will finish them before the presentation. Currently, I have maximum, minimum, average and variance number of processes v. overall run time (main) graphs, as well as average run times for comm and comp time, for the two finished array sizes. 
+
+#### Nathan: Merge Sort
+I was not able to complete all of the runs for the higher process counts. I was able to get the combinations of array sizes and types up to 256 processes but the runs for 512 processes and 1024 processes are stuck in the queue so these will have to be done before the presentation. The implementation is confirmed to work however and there are times for minimum, maximum, and average however I am having trouble getting the graphs to show up properly.
+
+#### Mrinal : Sample Sort
+Due to issues with Grace and the queue, I could not get all 280 Cali files. I was able to get data for all the random sorted 2^16 2^18 2^20 and 2^22. For the other types of data and sizes, the jobs were stuck in the queue or had network issues, so I will fix the issues and finish them before we present. 
