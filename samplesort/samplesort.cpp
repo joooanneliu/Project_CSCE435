@@ -6,6 +6,7 @@
 #include <ctime>
 #include <cmath>
 #include <caliper/cali.h>
+#include <caliper/cali-manager.h>
 #include <adiak.hpp>
 
 bool isSorted(const std::vector<int>& vec) {
@@ -25,9 +26,12 @@ int main(int argc, char** argv) {
     int rank, size;
     MPI_Comm_rank(MPI_COMM_WORLD, &rank);
     MPI_Comm_size(MPI_COMM_WORLD, &size);
+    cali::ConfigManager mgr;
+	mgr.start();
     std::vector<int> data;         // Holds the original data at root process
     std::vector<int> local_data;   // Holds each process's local chunk of data
     int exponent = atoi(argv[1]);
+    std::string input_type = argv[2];  
     int total_data_size = static_cast<int>(pow(2, exponent));     // Total size of data
     int local_size = total_data_size / size; // Size of data each process will handle
     
@@ -40,20 +44,28 @@ int main(int argc, char** argv) {
     if (rank == 0) {
         data.resize(total_data_size);
         std::srand(std::time(nullptr));
-        for (int i = 0; i < total_data_size; ++i) {
-            // data[i] = i; // sorted
-            data[i] = std::rand() % 1000; // Random integers between 0 and 999
-            // data[i] = total_data_size - i; // reverse sorted
-        }
-        // int swaps = std::max(1, n / 100); // 1% perturbed
-        // for (int i = 0; i < swaps; ++i) {
-        //     int idx1 = std::rand() % n;
-        //     int idx2 = std::rand() % n;
-        //     while (idx1 == idx2) {
-        //         idx2 = std::rand() % n;
-        //     }
-        //     std::swap(data[idx1], data[idx2]);
-        // }
+        if(input_type == "Random") {
+         for (int i = 0; i < total_data_size; i++) {
+            data[i] = std::rand() % total_data_size + 1;
+         }   
+        } else if(input_type == "Reverse_sorted") {
+         for (int i = 0; i < total_data_size; i++) {
+            data[i] = total_data_size - i;
+         }   
+        } else {
+         for (int i = 0; i < total_data_size; i++) {
+            data[i] = i + 1;
+         } 
+         if(input_type == "1_perturbed")
+         for(int i = 0; i < total_data_size * 0.1; i++) {
+            int index1 = std::rand() % total_data_size;
+            int index2 = std::rand() % total_data_size;
+
+            int temp = data[index1];
+            data[index1] = data[index2];
+            data[index2] = temp;
+         }  
+      }
     }
     CALI_MARK_END("data_init_runtime");
 
@@ -219,8 +231,7 @@ int main(int argc, char** argv) {
     std::string programming_model = "mpi";
     std::string data_type = "int";
     int size_of_data_type = sizeof(int);
-    int input_size = total_data_size;
-    std::string input_type = "random";  
+    int input_size = total_data_size; 
     int num_procs = size;
     std::string scalability = "strong";  
     int group_number = 4;  
@@ -236,6 +247,9 @@ int main(int argc, char** argv) {
     adiak::value("scalability", scalability);
     adiak::value("group_num", group_number);
     adiak::value("implementation_source", implementation_source);
+
+    mgr.stop();
+    mgr.flush();
 
     MPI_Finalize();
     return 0;
