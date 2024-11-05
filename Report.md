@@ -240,7 +240,75 @@ I wrote the implementation of sample sort in sample sort.cpp, which is inside th
 ### 4. Performance Evaluation
 Each of the performance evaluation reports and respective plots are separated by sort. The links to them are listed below. 
 #### Simon: Bitonic Sort
-Due to difficulties with the Grace queue, I was unable to gain all 280 cali files. I was able to get data for all of the input types and processors for the smallest size (2^16) as well as a wide variety of other size, processor, input combinations. Before the presentation I will be able gain the remaining cali files, so that I may present my strong scaling, speedup, and weak scaling plots. 
+#### Simon: Bitonic Sort
+![image](https://github.com/user-attachments/assets/764a1385-c57b-4c73-a27e-faab460dcda4)
+Comp takes a large majority of the time, which could be due to the poor implementation of the swapping mechanic necessary for bitonic sort. This further explains why in future graphs, the speed of computation remains constant over the amount of processes, as implementation bottlenecks the algorithm's predicted performance.
+
+##### Times for 2^16 Array Size
+![image](https://github.com/user-attachments/assets/979a63b7-1877-4f2e-b805-66b7d9042164)
+![image](https://github.com/user-attachments/assets/97d45753-283c-42d3-b375-b171b330fdd4)
+![image](https://github.com/user-attachments/assets/3b69a315-dadf-4a2e-b3e4-f0548d3303d7)
+##### Times for 2^18 Array Size
+![image](https://github.com/user-attachments/assets/22302a86-c402-4af7-8807-c93826901d50)
+![image](https://github.com/user-attachments/assets/5cf3b369-b2b6-44c2-aea6-a86d27cc970a)
+![image](https://github.com/user-attachments/assets/262bea8f-6ade-439f-ad29-e8111ace7607)
+##### Times for 2^20 Array Size
+![image](https://github.com/user-attachments/assets/4083dd3c-4b6d-4cea-8c31-52de08430abd)
+![image](https://github.com/user-attachments/assets/9924ec6e-0ddf-4ebd-92df-b158f3fb9fd5)
+![image](https://github.com/user-attachments/assets/72c2e18d-dcc4-4a74-9ff2-164b4c2a4c0d)
+##### Times for 2^22 Array Size
+![image](https://github.com/user-attachments/assets/b278cf7d-7710-4466-8c17-d0dbe012f17f)
+![image](https://github.com/user-attachments/assets/634c0135-2845-40b8-9d45-3d93f667c493)
+![image](https://github.com/user-attachments/assets/f743fa67-415a-4a23-a410-95f3a50c360a)
+##### Times for 2^24 Array Size
+![image](https://github.com/user-attachments/assets/b92bbfc6-2e1e-4680-80d3-a1993bdfa681)
+![image](https://github.com/user-attachments/assets/f27bc6b5-1629-4100-80a4-88ff6cb18ecd)
+![image](https://github.com/user-attachments/assets/90a6910b-57c5-44d3-b701-77cbbb0810bf)
+##### Times for 2^26 Array Size
+![image](https://github.com/user-attachments/assets/c1aa4836-043e-4617-ad08-2d0c7a46702e)
+![image](https://github.com/user-attachments/assets/2fec244b-313c-48ae-8320-6e74191f1770)
+![image](https://github.com/user-attachments/assets/1867d670-b7d5-41f1-9ec5-5960c0fd6b6c)
+##### Times for 2^28 Array Size
+![image](https://github.com/user-attachments/assets/8371239b-cd81-4f42-9897-c2b24d6a609a)
+![image](https://github.com/user-attachments/assets/499ab3a3-8c92-4109-a9c0-8818a78a8fe4)
+![image](https://github.com/user-attachments/assets/d6b685c0-8419-4f58-93f9-4c53fb046df4)
+
+##### Weak Scaling Main
+![image](https://github.com/user-attachments/assets/5141aa54-9e13-403b-bd03-89a8471a0cf7)
+![image](https://github.com/user-attachments/assets/f4ce349a-3c06-48f5-be31-fffb3ab4ff97)
+![image](https://github.com/user-attachments/assets/2c9014fa-0fd1-46de-9151-e98b5148c522)
+![image](https://github.com/user-attachments/assets/76c2d9c2-12b0-41ae-bce6-530e13f89faa)
+##### Weak Scaling Comm
+![image](https://github.com/user-attachments/assets/d30bcbb3-586b-4164-9cb6-e4d273a5def3)
+![image](https://github.com/user-attachments/assets/852c2b14-481c-4b0a-b607-bf251e067265)
+![image](https://github.com/user-attachments/assets/76d2a8c2-2d66-45a6-bd07-c6a7ee80809c)
+![image](https://github.com/user-attachments/assets/8415d6d4-e533-4c67-879c-5cd112e9ef35)
+##### Weak Scaling Comp
+![image](https://github.com/user-attachments/assets/9ddd8a19-82d9-4c7d-a7b1-9c8822d9274f)
+![image](https://github.com/user-attachments/assets/49499574-8597-4ef4-af24-7b965d94b302)
+![image](https://github.com/user-attachments/assets/cfd153b2-1684-42db-ae02-af7925a8c74f)
+![image](https://github.com/user-attachments/assets/07075a5d-5eb8-497a-a32a-ea5f832160ac)
+
+##### Strong Scaling
+![image](https://github.com/user-attachments/assets/e7f60a55-217d-4c5c-a8d7-cb9373fb8d7b)
+![image](https://github.com/user-attachments/assets/f7a265b1-fd24-4ec2-bed4-b85d30ba598e)
+![image](https://github.com/user-attachments/assets/50b9f68d-1ff1-4eda-ba97-806838b3bedc)
+![image](https://github.com/user-attachments/assets/8eef2efe-0d21-4727-bd6c-0e81576a355b)
+
+##### Cache Misses Main
+![image](https://github.com/user-attachments/assets/9b653e97-069f-40b8-bf76-36cc12e3a417)
+![image](https://github.com/user-attachments/assets/cce645dd-eeba-4a1b-9826-06d33ef0f1a3)
+![image](https://github.com/user-attachments/assets/7148a6f8-9867-41de-a170-bb9e08019625)
+
+##### Cache Misses Comm
+![image](https://github.com/user-attachments/assets/cb4057d1-4058-42a9-84f7-e790fbfa3a3f)
+![image](https://github.com/user-attachments/assets/1eea9602-84d0-4ba6-b863-6de806f27e68)
+![image](https://github.com/user-attachments/assets/5902c66d-159f-403a-8b1d-d61e20486466)
+
+##### Cache Misses Comp
+![image](https://github.com/user-attachments/assets/280d0d00-1d3b-468a-a354-a911ca5dbb5b)
+![image](https://github.com/user-attachments/assets/b2ab7b29-984f-4af4-9fa5-2204b1fe862c)
+![image](https://github.com/user-attachments/assets/bce99de0-c542-425d-813e-089bdb88b8da)
 
 #### Joanne: Radix Sort
 <img width="678" alt="Screenshot 2024-11-04 at 6 48 07 PM" src="https://github.com/user-attachments/assets/1c97d951-2537-43f4-8484-c8b7e1984e09">
