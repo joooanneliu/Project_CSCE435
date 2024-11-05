@@ -391,5 +391,13 @@ For comm large it can be seen that for the L1 cache misses, there is a slight ch
 For main it can be seen that for the L1 cache misses, there is a slight change in cache misses as the processes increases but mainly, there is a notable increase in cache misses as the array size increases  
 ![image](https://github.com/user-attachments/assets/bb83eade-b96c-46ff-902e-7cd5109b4d9c)
 ![image](https://github.com/user-attachments/assets/69955bc2-00bf-4350-b5dc-298a03ddb1e5)  
+For comp large it can be seen that for the L2 cache misses, there is a slight change in cache misses as the processes increases but mainly, there is a notable increase in cache misses as the array size increases  
+![image](https://github.com/user-attachments/assets/3aa9a7c0-e8b4-4922-b981-5d7f1c17a9f7)
+![image](https://github.com/user-attachments/assets/e27bfb2b-3251-4fee-8920-4ffdad05447f)  
+For comm large it can be seen that for the L2 cache misses, there is a slight change in cache misses as the processes increases aside from the case for sorted input for 2^28 array size but mainly, there is a notable increase in cache misses as the array size increases  
+![image](https://github.com/user-attachments/assets/c79d8c86-1c8c-4e67-a2b8-24b8a494876a)
+![image](https://github.com/user-attachments/assets/0a33adb9-0d52-4e50-9931-919926831335)  
+For comm large it can be seen that for the L2 cache misses, there is a slight change in cache misses as the processes increases aside from the cases for sorted input but mainly, there is a notable increase in cache misses as the array size increases  
+
 #### Mrinal : Sample Sort
 Due to issues with Grace and the queue, I could not get all 280 Cali files. I was able to get data for all the random sorted 2^16 2^18 2^20 and 2^22. For the other types of data and sizes, the jobs were stuck in the queue or had network issues, so I will fix the issues and finish them before we present. 
