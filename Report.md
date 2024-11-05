@@ -368,6 +368,28 @@ For the 2^28 array size, you can see that as the number of processes increases, 
 ![image](https://github.com/user-attachments/assets/2acbbb42-6612-465d-b958-14e7039391af)
 ![image](https://github.com/user-attachments/assets/cb6a6858-4ecc-429b-ac52-f0d768cbab31)  
  For the weak scaling plot for main, the graph follows an increasing concave up trend for all sorting types though the times for random and 1_perc_perturbed are noticeably higher especially at the highest numbers of processes. This trend is not ideal as the weak scaling should be about linear in nature and the difference of the plots from the ideal linear trend is probably due to issues with overhead in implementation  
-
+![image](https://github.com/user-attachments/assets/eb5e196e-2d46-46d2-8e98-3c0adc85e812)
+![image](https://github.com/user-attachments/assets/b469f709-ce8b-4d16-868d-6ab9191658af)
+![image](https://github.com/user-attachments/assets/2b97ef79-43c6-4dcb-93c3-07709882bf1a)  
+For the strong scaling speedup plots for comp, for all of the array sizes, the comp times trend towards increasing in a concave up manner as number of processes increases with similar values regardless of input type  
+![image](https://github.com/user-attachments/assets/af4626c5-d7c8-4cae-b2c9-56d4bff01157)
+![image](https://github.com/user-attachments/assets/a5493c4d-28bb-4019-a8e8-64470e51ba88)
+![image](https://github.com/user-attachments/assets/bd4c8cbd-7f64-4d70-af5a-5a8a44120106)  
+For the strong scaling plots for comm, for all of the array sizes, there is a trend of an initial decrease which then evens out and becomes about constant though the smaller array sizes tend to have a greater fluctuation in this constant as compared to the larger array sizes. The plots are about similar across input types  
+![image](https://github.com/user-attachments/assets/bf77ecb4-5450-4ff9-94c2-98dc618d71f7)
+![image](https://github.com/user-attachments/assets/57d2b535-6088-43ca-a7c5-3ac0026ae02a)
+![image](https://github.com/user-attachments/assets/53068552-caff-44fe-81f5-2f64accb8b25)  
+For the strong scaling speedup plots for main, the smaller array sizes remain about constant while the larger array sizes have an initial steep increase that then becomes less steep and eventually plateaus as the number of processes increases. This is due to the overhead becoming greater than the benefits in computation from adding processes. The times are higher for reverse sorted and sorted input types  
+![image](https://github.com/user-attachments/assets/0baa44d6-c92e-4f40-a791-064e430aacec)
+![image](https://github.com/user-attachments/assets/7e0fe89c-5468-4892-8bff-e52a55d0d491)  
+For comp large it can be seen that for the L1 cache misses, there is a slight change in cache misses as the processes increases but mainly, there is a notable increase in cache misses as the array size increases  
+![image](https://github.com/user-attachments/assets/58c73fec-f0ee-4614-839a-084a383d9eae)
+![image](https://github.com/user-attachments/assets/735c62fd-810e-4fd4-bd22-d5c721cf93a3)  
+For comm large it can be seen that for the L1 cache misses, there is a slight change in cache misses as the processes increases but mainly, there is a notable increase in cache misses as the array size increases  
+![image](https://github.com/user-attachments/assets/0b785823-6d2c-4258-8f4a-7966c1e7b570)
+![image](https://github.com/user-attachments/assets/f09e26d6-d233-42e5-830c-f9f7de5387eb)  
+For main it can be seen that for the L1 cache misses, there is a slight change in cache misses as the processes increases but mainly, there is a notable increase in cache misses as the array size increases  
+![image](https://github.com/user-attachments/assets/bb83eade-b96c-46ff-902e-7cd5109b4d9c)
+![image](https://github.com/user-attachments/assets/69955bc2-00bf-4350-b5dc-298a03ddb1e5)  
 #### Mrinal : Sample Sort
 Due to issues with Grace and the queue, I could not get all 280 Cali files. I was able to get data for all the random sorted 2^16 2^18 2^20 and 2^22. For the other types of data and sizes, the jobs were stuck in the queue or had network issues, so I will fix the issues and finish them before we present. 
