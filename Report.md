@@ -243,8 +243,93 @@ Each of the performance evaluation reports and respective plots are separated by
 Due to difficulties with the Grace queue, I was unable to gain all 280 cali files. I was able to get data for all of the input types and processors for the smallest size (2^16) as well as a wide variety of other size, processor, input combinations. Before the presentation I will be able gain the remaining cali files, so that I may present my strong scaling, speedup, and weak scaling plots. 
 
 #### Joanne: Radix Sort
-I was not able to complete all the runs for the array sizes. I was only able to get all of the processes for 2^26 and 2^24, so I can confirm that the code works. For the other way array sizes, the jobs were all stuck in the queue, so I will finish them before the presentation. Currently, I have maximum, minimum, average and variance number of processes v. overall run time (main) graphs, as well as average run times for comm and comp time, for the two finished array sizes. 
-[https://docs.google.com/document/d/1cNAdygEGtYZBizHxPK6fq0ElrpkjmnI3FXi66ox7Sg4/edit?usp=sharing](url)
+<img width="678" alt="Screenshot 2024-11-04 at 6 48 07 PM" src="https://github.com/user-attachments/assets/1c97d951-2537-43f4-8484-c8b7e1984e09">
+For the Radix Sort algorithm, the comm_large and comp_large act the same as comm and comp, since they include all the computation and communication sections. 
+
+Below are the strong scaling graphs for the main section. Due to the implementation, the algorithm’s total run time increases linearly for the two smaller array sizes as the algorithm parallelizes. For the larger array sizes, as the number of processes increases, the total main time increases exponentially. As the array sizes increase, the different types of user inputs also perform more and more similarly. 
+
+<img width="892" alt="Screenshot 2024-11-04 at 6 47 24 PM" src="https://github.com/user-attachments/assets/8f42d367-5501-47e9-8961-acc472ef0067">
+<img width="883" alt="Screenshot 2024-11-04 at 6 47 20 PM" src="https://github.com/user-attachments/assets/e770f3e2-c13f-4b9c-aca5-7b0ae124dd7a">
+<img width="858" alt="Screenshot 2024-11-04 at 6 47 15 PM" src="https://github.com/user-attachments/assets/30d6dcee-16af-48cb-b8a4-18b6977ae642">
+<img width="888" alt="Screenshot 2024-11-04 at 6 47 10 PM" src="https://github.com/user-attachments/assets/4a6b7c6b-83d2-42a9-9fbb-0e0dc3e8337c">
+<img width="901" alt="Screenshot 2024-11-04 at 6 47 06 PM" src="https://github.com/user-attachments/assets/89f786a7-23b5-4a50-be87-daba12cc2289">
+<img width="890" alt="Screenshot 2024-11-04 at 6 47 01 PM" src="https://github.com/user-attachments/assets/7652ebe8-21c0-4286-beac-124a5fe12d2b">
+<img width="866" alt="Screenshot 2024-11-04 at 6 46 57 PM" src="https://github.com/user-attachments/assets/ccadc353-f3b0-4407-b9f6-b61a0e9ba5d4">
+
+The graphs below are the strong scaling graphs for communication time. For the 2^16 and 2^18 array sizes, the communication time stays generally constant until 256 processes and increases significantly for 512 and 1024 processes. The random array performed the best for those sizes. 
+<img width="904" alt="Screenshot 2024-11-04 at 6 50 18 PM" src="https://github.com/user-attachments/assets/5dfc8b4f-afd6-4162-a4ba-808c20dcb9ea">
+<img width="894" alt="Screenshot 2024-11-04 at 6 50 13 PM" src="https://github.com/user-attachments/assets/270b296f-6df2-4c17-95ed-5de88b12badf">
+
+For the other larger array sizes, the time decreases from 2 processes until around 256 processes and increases significantly, with the exception of 2^20 size. The communication time graph is similar for the 2^20 array size but instead starts increasing from 64 processes, and peaks at 512 processes and drops to its lowest time for 1024 processes, which shows that the algorithm parallelized the best for that size. 
+
+<img width="933" alt="Screenshot 2024-11-04 at 6 51 09 PM" src="https://github.com/user-attachments/assets/8ef6968b-bbc1-4081-9219-4a58f5fcb56c">
+<img width="901" alt="Screenshot 2024-11-04 at 6 51 03 PM" src="https://github.com/user-attachments/assets/f78d02f5-629f-447e-aec1-5e3d45709e2d">
+<img width="859" alt="Screenshot 2024-11-04 at 6 50 57 PM" src="https://github.com/user-attachments/assets/ae3ec9f2-0a63-4a11-bf2c-9e3aee18b2f2">
+<img width="896" alt="Screenshot 2024-11-04 at 6 50 52 PM" src="https://github.com/user-attachments/assets/6f0748cd-f08c-4bcc-a2a4-6695ed06f3a5">
+<img width="881" alt="Screenshot 2024-11-04 at 6 50 47 PM" src="https://github.com/user-attachments/assets/c787c89f-bf0b-4ed6-bcfb-ad4d5b77b0ad">
+
+In the strong scaling computation time graphs below, all the computation time decreased exponentially as the number of processes decreased. All input types performed similarly across the different array sizes.
+<img width="865" alt="Screenshot 2024-11-04 at 6 52 40 PM" src="https://github.com/user-attachments/assets/b0ece0aa-9df5-4dd2-b7ee-0d56848cf273">
+<img width="868" alt="Screenshot 2024-11-04 at 6 52 34 PM" src="https://github.com/user-attachments/assets/c08140ef-349e-415d-bc28-451e60b618be">
+<img width="884" alt="Screenshot 2024-11-04 at 6 52 27 PM" src="https://github.com/user-attachments/assets/335170d4-5dc3-433c-b00b-d26bc208a221">
+<img width="892" alt="Screenshot 2024-11-04 at 6 52 22 PM" src="https://github.com/user-attachments/assets/901b25af-03a3-46c8-9720-66ddd046a618">
+<img width="862" alt="Screenshot 2024-11-04 at 6 52 18 PM" src="https://github.com/user-attachments/assets/6446bbd4-6ee3-4385-9234-38cfb7a793f5">
+<img width="893" alt="Screenshot 2024-11-04 at 6 52 01 PM" src="https://github.com/user-attachments/assets/d9ebbabe-7bc1-46d1-8d29-387e941d5ffa">
+<img width="873" alt="Screenshot 2024-11-04 at 6 51 56 PM" src="https://github.com/user-attachments/assets/960d5993-c3cb-4545-a61c-68e4f3bc501a">
+
+Below are the total main time weak scaling graphs for each input type, where the number of processes and the input sizes increased at a constant rate. For all input types, the total main time increased at a faster rate than the number of processes and problem size. Ideally, the weak scaling graph should be a horizontal line, but for the main time especially, the total time is only somewhat linear up until 16 processes, which then starts growing exponentially. The graphs look similar for communication and computation times, showing that the implementation does not allow for the algorithm to scale well as the number of processes and problem size increases. 
+
+<img width="885" alt="Screenshot 2024-11-04 at 6 53 32 PM" src="https://github.com/user-attachments/assets/a5451339-f554-435d-ba96-6bcf73165b67">
+<img width="868" alt="Screenshot 2024-11-04 at 6 53 27 PM" src="https://github.com/user-attachments/assets/91bb4489-60c3-4a6b-aba5-f76970de742b">
+<img width="861" alt="Screenshot 2024-11-04 at 6 53 23 PM" src="https://github.com/user-attachments/assets/b06117fd-d440-4600-9eda-5e96c1cb2a46">
+<img width="867" alt="Screenshot 2024-11-04 at 6 53 10 PM" src="https://github.com/user-attachments/assets/758da8f2-0c3d-42a8-9ac4-22453a7c41b9">
+<img width="876" alt="Screenshot 2024-11-04 at 6 54 51 PM" src="https://github.com/user-attachments/assets/f90e678d-83be-4a4a-b397-d7e2a2df018c">
+<img width="867" alt="Screenshot 2024-11-04 at 6 54 46 PM" src="https://github.com/user-attachments/assets/7d922177-564a-4b75-bc51-1f53c01dae00">
+<img width="871" alt="Screenshot 2024-11-04 at 6 54 40 PM" src="https://github.com/user-attachments/assets/c2b699a1-82fd-40c9-ba7b-7ee7bf591102">
+<img width="859" alt="Screenshot 2024-11-04 at 6 54 36 PM" src="https://github.com/user-attachments/assets/eb64b43e-8fba-4f6b-ab0f-881594d5aa94">
+<img width="896" alt="Screenshot 2024-11-04 at 6 54 30 PM" src="https://github.com/user-attachments/assets/951f79a1-1d5c-42c8-9078-adffd8259794">
+<img width="891" alt="Screenshot 2024-11-04 at 6 54 26 PM" src="https://github.com/user-attachments/assets/549382e9-5bed-49d7-a415-a3783e3c3614">
+<img width="880" alt="Screenshot 2024-11-04 at 6 54 20 PM" src="https://github.com/user-attachments/assets/c90279ce-c99c-4748-844f-db4e63bce057">
+<img width="874" alt="Screenshot 2024-11-04 at 6 54 15 PM" src="https://github.com/user-attachments/assets/560a013c-1920-49aa-a2e0-d6af0e7fb754">
+
+For all total main time strong scaling speedup graphs, most array sizes had the highest speedup at 8 processors, and then decreased eventually below 2, which shows that the total main time gets longer as the number of processes increases. 
+<img width="876" alt="Screenshot 2024-11-04 at 6 56 05 PM" src="https://github.com/user-attachments/assets/eced5360-36f0-4585-b1e0-f2d6ea3d9ee7">
+<img width="864" alt="Screenshot 2024-11-04 at 6 56 11 PM" src="https://github.com/user-attachments/assets/28cd8c35-11a1-4660-8b29-54e762384fd7">
+<img width="876" alt="Screenshot 2024-11-04 at 6 56 39 PM" src="https://github.com/user-attachments/assets/2f8094f5-4e2a-4bcd-b1ba-6affc39eecb6">
+<img width="874" alt="Screenshot 2024-11-04 at 6 56 35 PM" src="https://github.com/user-attachments/assets/f8f21226-6eb8-4b7a-ba8e-2ccc232c9f11">
+
+For the strong scaling communication speedup, for most of the array sizes, the speed up peaked at 64 processors, which makes sense since that is when the number of nodes requested starts to increase. The large decrease in speedup for communication time for the larger number of processes also suggests that there is a large communication overhead in the implementation that prevents the algorithm from benefiting from the parallelization. 
+
+<img width="872" alt="Screenshot 2024-11-04 at 6 57 03 PM" src="https://github.com/user-attachments/assets/76ff6ca1-c948-457a-9f94-b167f9a71451">
+<img width="880" alt="Screenshot 2024-11-04 at 6 57 13 PM" src="https://github.com/user-attachments/assets/4125b8b6-59f2-4de8-9397-7854e49658b8">
+<img width="860" alt="Screenshot 2024-11-04 at 6 57 26 PM" src="https://github.com/user-attachments/assets/d242528d-8485-4ae5-b01a-26d0251abcc0">
+<img width="883" alt="Screenshot 2024-11-04 at 6 57 37 PM" src="https://github.com/user-attachments/assets/f77cd742-91b5-402c-bf4d-4d1e71501443">
+
+For the strong scaling computation speedup graph for all the input types, they all increased as the number of processes increased. The growth rate tapered off for the larger number of processes. 
+<img width="868" alt="Screenshot 2024-11-04 at 6 57 55 PM" src="https://github.com/user-attachments/assets/a823b12f-6169-4e4a-bf8f-01e57dc61376">
+<img width="857" alt="Screenshot 2024-11-04 at 6 58 03 PM" src="https://github.com/user-attachments/assets/e07820a3-08d1-4b2a-99d9-5857dddc1d57">
+<img width="872" alt="Screenshot 2024-11-04 at 6 58 19 PM" src="https://github.com/user-attachments/assets/887d445d-ab68-4e9f-a68f-01a8afb5f7cd">
+<img width="840" alt="Screenshot 2024-11-04 at 6 58 31 PM" src="https://github.com/user-attachments/assets/36749a71-ac31-4662-85c7-d8e20795b25c">
+
+Below are the L1 and L2 cache misses per rank for each input type. Shown in the cache misses graphs, the large array sizes have more cache misses. For all of the total main time and comp_large graphs, the total number of cache misses also increases as the number of processes increases from 16 to 32. For the comm_large graphs, the cache misses would decrease as the number of processes increases. 
+<img width="886" alt="Screenshot 2024-11-04 at 6 59 04 PM" src="https://github.com/user-attachments/assets/48a72020-5e96-4905-83ff-24956f14ff64">
+<img width="867" alt="Screenshot 2024-11-04 at 6 59 13 PM" src="https://github.com/user-attachments/assets/86e37874-3ebd-484f-9090-3895b0aec3c5">
+<img width="878" alt="Screenshot 2024-11-04 at 6 59 23 PM" src="https://github.com/user-attachments/assets/46b766de-cfec-4380-b4f4-63681ad89acf">
+<img width="869" alt="Screenshot 2024-11-04 at 6 59 31 PM" src="https://github.com/user-attachments/assets/228b9814-71e3-4466-96df-64ca3bcead49">
+<img width="880" alt="Screenshot 2024-11-04 at 6 59 39 PM" src="https://github.com/user-attachments/assets/5446db65-59e5-4a1c-91d2-8cb9a08fe451">
+<img width="881" alt="Screenshot 2024-11-04 at 6 59 48 PM" src="https://github.com/user-attachments/assets/8ba37a8b-968e-4769-af2d-da14ff3b1c77">
+<img width="871" alt="Screenshot 2024-11-04 at 6 59 57 PM" src="https://github.com/user-attachments/assets/3d6917ea-91d0-438a-b7d8-03c709620134">
+<img width="872" alt="Screenshot 2024-11-04 at 7 00 07 PM" src="https://github.com/user-attachments/assets/b79e7b1f-b707-4b87-b6b6-0f0d63129aa4">
+<img width="884" alt="Screenshot 2024-11-04 at 7 00 16 PM" src="https://github.com/user-attachments/assets/353f7d56-2e11-42fc-922d-869a77228f4c">
+<img width="881" alt="Screenshot 2024-11-04 at 7 00 24 PM" src="https://github.com/user-attachments/assets/d1738a53-4cb9-4737-a8c2-adeb218ad060">
+<img width="881" alt="Screenshot 2024-11-04 at 7 00 31 PM" src="https://github.com/user-attachments/assets/bf8da415-2876-4f0c-ae91-00105d63d0ef">
+<img width="853" alt="Screenshot 2024-11-04 at 7 00 38 PM" src="https://github.com/user-attachments/assets/a4e0d522-6639-4478-a64d-c1b8a0062ad3">
+<img width="870" alt="Screenshot 2024-11-04 at 7 00 46 PM" src="https://github.com/user-attachments/assets/fc4dc388-6c80-4f63-a241-dabbe693a9bc">
+<img width="855" alt="Screenshot 2024-11-04 at 7 00 55 PM" src="https://github.com/user-attachments/assets/f8b985a3-015b-4c33-a3f2-90933e905f65">
+<img width="878" alt="Screenshot 2024-11-04 at 7 01 04 PM" src="https://github.com/user-attachments/assets/ab0e8ecd-fc06-4d17-be1a-27b364e290ab">
+<img width="868" alt="Screenshot 2024-11-04 at 7 01 14 PM" src="https://github.com/user-attachments/assets/20318b21-b395-4801-ad51-aeaf538b3102">
+<img width="866" alt="Screenshot 2024-11-04 at 7 01 22 PM" src="https://github.com/user-attachments/assets/5dba6f0d-fc21-430f-aa64-5c4dbe675853">
+<img width="921" alt="Screenshot 2024-11-04 at 7 01 34 PM" src="https://github.com/user-attachments/assets/03853d40-8cf7-421c-b59f-fff8efae4d08">
 
 #### Nathan: Merge Sort
 I was not able to complete all of the runs for the higher process counts. I was able to get the combinations of array sizes and types up to 256 processes but the runs for 512 processes and 1024 processes are stuck in the queue so these will have to be done before the presentation. The implementation is confirmed to work however and there are times for minimum, maximum, and average however I am having trouble getting the graphs to show up properly.
