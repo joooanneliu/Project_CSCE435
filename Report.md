@@ -332,7 +332,173 @@ Below are the L1 and L2 cache misses per rank for each input type. Shown in the 
 <img width="921" alt="Screenshot 2024-11-04 at 7 01 34 PM" src="https://github.com/user-attachments/assets/03853d40-8cf7-421c-b59f-fff8efae4d08">
 
 #### Nathan: Merge Sort
-I was not able to complete all of the runs for the higher process counts. I was able to get the combinations of array sizes and types up to 256 processes but the runs for 512 processes and 1024 processes are stuck in the queue so these will have to be done before the presentation. The implementation is confirmed to work however and there are times for minimum, maximum, and average however I am having trouble getting the graphs to show up properly.
+![image](https://github.com/user-attachments/assets/5c78a834-bea9-49c8-a2eb-a5a3df717f6b)  
+For merge sort, the comp_large and comm_large sections are the same as comp and comm respectively since all the communication and computation involved fall under comp_large and comm_large  
+
+![image](https://github.com/user-attachments/assets/d6e99286-be3b-4fac-b053-8ad20f0ffff2)
+![image](https://github.com/user-attachments/assets/ad738112-7205-4b62-b10c-e0e27b85f6de)  
+For the 2^16 array size, you can see that though the comp time decreases as number of processes increases, the comm time also increases causing the overall main time to trend toward increasing as number of processes increases as well due to overhead and all times are similar regardless of sorting type  
+![image](https://github.com/user-attachments/assets/68a9f817-ea13-4344-8d3e-ee3422997155)
+![image](https://github.com/user-attachments/assets/bfadfe69-9b2f-4ec9-85a5-4442f79a5ad9)  
+For the 2^18 array size, you can see that though the comp time decreases as number of processes increases, the comm time also increases causing the overall main time to trend toward increasing as number of processes increases as well due to overhead and all times are similar regardless of sort type  
+![image](https://github.com/user-attachments/assets/0b5fdd89-37bc-49b6-a323-35d5cb5d7747)
+![image](https://github.com/user-attachments/assets/c0968bff-d9de-4039-8cc4-0053b3a152ca)  
+For the 2^20 array size, you can see that the comp time decreases as the number of processes increases and the comm time remains somewhat constant until an increase near the larger numbers of processors which still causes the overall main time to generally trend toward increasing as the number of processes increases as well due to overhead. For this array size, the comm times for random and 1_perc_perturbed sorting types were greater  
+![image](https://github.com/user-attachments/assets/24ef18d3-903d-4bef-be17-9b6fa68e3232)
+![image](https://github.com/user-attachments/assets/f514f037-3e46-419f-800e-8062e39908f0)
+For the 2^22 array size, you can see that as the number of processes increases, the comp time increases and the comm time remains somewhat constant and since the decrease in comp time is more significant than the overhead, the total main time trends towards decreasing as the number of processes increases. For this array size, the comm times for random and 1_perc_perturbed sort types are greater.  
+![image](https://github.com/user-attachments/assets/96738e4d-cff5-47dd-b456-2f0847dbcd21)
+![image](https://github.com/user-attachments/assets/0a3a9233-e062-4315-ba72-3975b74426a3)  
+For the 2^24 array size, you can see that as the number of processes increases, the comp time increases and the comm time remains somewhat constant and since the decrease in comp time is more significant than the overhead, the total main time trends towards decreasing as the number of processes increases. For this array size, the comm times for random and 1_perc_perturbed sort types are greater.  
+![image](https://github.com/user-attachments/assets/61d64855-80b2-48f5-9f01-040d9a9eaaa7)
+![image](https://github.com/user-attachments/assets/8aaf6ae7-0edb-4ad2-abe5-02f5b753d1a5)  
+For the 2^26 array size, you can see that as the number of processes increases, the comp time increases and the comm time remains somewhat constant and since the decrease in comp time is more significant than the overhead, the total main time trends towards decreasing as the number of processes increases. For this array size, the comm times for random and 1_perc_perturbed sort types are greater.  
+![image](https://github.com/user-attachments/assets/0be2b578-7597-40d8-a125-f27ce2796d7b)
+![image](https://github.com/user-attachments/assets/acd70b16-cf3a-4269-aa95-96b4a3e03fd8)  
+For the 2^28 array size, you can see that as the number of processes increases, the comp time increases and the comm time remains somewhat constant and since the decrease in comp time is more significant than the overhead, the total main time trends towards decreasing as the number of processes increases. For this array size, the comm times for random and 1_perc_perturbed sort types are greater.  
+![image](https://github.com/user-attachments/assets/964271fa-3ab2-4a01-bcad-c5280c3663d5)
+![image](https://github.com/user-attachments/assets/d143bcb6-f38e-4899-9af7-3ed72e1089c6)
+![image](https://github.com/user-attachments/assets/0204d7f1-63a9-4f3a-9d73-e66402cb3009)  
+ For the weak scaling plot for comp, the graph follows an increasing concave up trend for all sorting types though the times for random and 1_perc_perturbed are a bit higher. This trend is not ideal as the weak scaling should be about linear in nature and the difference of the plots from the ideal linear trend is probably due to issues with overhead in implementation  
+![image](https://github.com/user-attachments/assets/133900ea-edb2-412d-b826-22f24c256805)
+![image](https://github.com/user-attachments/assets/2c5b6a1a-ed2e-4cdd-9df2-cdf7bc334b18)
+![image](https://github.com/user-attachments/assets/83897dd2-75f7-4590-926a-752a36036523)  
+ For the weak scaling plot for comm, the graph follows an increasing concave up trend for all sorting types though the times for random and 1_perc_perturbed are noticeably higher especially at the highest numbers of processes. This trend is not ideal as the weak scaling should be about linear in nature and the difference of the plots from the ideal linear trend is probably due to issues with overhead in implementation  
+![image](https://github.com/user-attachments/assets/cea2002d-7d86-4f37-800f-2434a7aa45a4)
+![image](https://github.com/user-attachments/assets/2acbbb42-6612-465d-b958-14e7039391af)
+![image](https://github.com/user-attachments/assets/cb6a6858-4ecc-429b-ac52-f0d768cbab31)  
+ For the weak scaling plot for main, the graph follows an increasing concave up trend for all sorting types though the times for random and 1_perc_perturbed are noticeably higher especially at the highest numbers of processes. This trend is not ideal as the weak scaling should be about linear in nature and the difference of the plots from the ideal linear trend is probably due to issues with overhead in implementation  
+![image](https://github.com/user-attachments/assets/eb5e196e-2d46-46d2-8e98-3c0adc85e812)
+![image](https://github.com/user-attachments/assets/b469f709-ce8b-4d16-868d-6ab9191658af)
+![image](https://github.com/user-attachments/assets/2b97ef79-43c6-4dcb-93c3-07709882bf1a)  
+For the strong scaling speedup plots for comp, for all of the array sizes, the comp times trend towards increasing in a concave up manner as number of processes increases with similar values regardless of input type  
+![image](https://github.com/user-attachments/assets/af4626c5-d7c8-4cae-b2c9-56d4bff01157)
+![image](https://github.com/user-attachments/assets/a5493c4d-28bb-4019-a8e8-64470e51ba88)
+![image](https://github.com/user-attachments/assets/bd4c8cbd-7f64-4d70-af5a-5a8a44120106)  
+For the strong scaling plots for comm, for all of the array sizes, there is a trend of an initial decrease which then evens out and becomes about constant though the smaller array sizes tend to have a greater fluctuation in this constant as compared to the larger array sizes. The plots are about similar across input types  
+![image](https://github.com/user-attachments/assets/bf77ecb4-5450-4ff9-94c2-98dc618d71f7)
+![image](https://github.com/user-attachments/assets/57d2b535-6088-43ca-a7c5-3ac0026ae02a)
+![image](https://github.com/user-attachments/assets/53068552-caff-44fe-81f5-2f64accb8b25)  
+For the strong scaling speedup plots for main, the smaller array sizes remain about constant while the larger array sizes have an initial steep increase that then becomes less steep and eventually plateaus as the number of processes increases. This is due to the overhead becoming greater than the benefits in computation from adding processes. The times are higher for reverse sorted and sorted input types  
+![image](https://github.com/user-attachments/assets/0baa44d6-c92e-4f40-a791-064e430aacec)
+![image](https://github.com/user-attachments/assets/7e0fe89c-5468-4892-8bff-e52a55d0d491)  
+For comp large it can be seen that for the L1 cache misses, there is a slight change in cache misses as the processes increases but mainly, there is a notable increase in cache misses as the array size increases  
+![image](https://github.com/user-attachments/assets/58c73fec-f0ee-4614-839a-084a383d9eae)
+![image](https://github.com/user-attachments/assets/735c62fd-810e-4fd4-bd22-d5c721cf93a3)  
+For comm large it can be seen that for the L1 cache misses, there is a slight change in cache misses as the processes increases but mainly, there is a notable increase in cache misses as the array size increases  
+![image](https://github.com/user-attachments/assets/0b785823-6d2c-4258-8f4a-7966c1e7b570)
+![image](https://github.com/user-attachments/assets/f09e26d6-d233-42e5-830c-f9f7de5387eb)  
+For main it can be seen that for the L1 cache misses, there is a slight change in cache misses as the processes increases but mainly, there is a notable increase in cache misses as the array size increases  
+![image](https://github.com/user-attachments/assets/bb83eade-b96c-46ff-902e-7cd5109b4d9c)
+![image](https://github.com/user-attachments/assets/69955bc2-00bf-4350-b5dc-298a03ddb1e5)  
+For comp large it can be seen that for the L2 cache misses, there is a slight change in cache misses as the processes increases but mainly, there is a notable increase in cache misses as the array size increases  
+![image](https://github.com/user-attachments/assets/3aa9a7c0-e8b4-4922-b981-5d7f1c17a9f7)
+![image](https://github.com/user-attachments/assets/e27bfb2b-3251-4fee-8920-4ffdad05447f)  
+For comm large it can be seen that for the L2 cache misses, there is a slight change in cache misses as the processes increases aside from the case for sorted input for 2^28 array size but mainly, there is a notable increase in cache misses as the array size increases  
+![image](https://github.com/user-attachments/assets/c79d8c86-1c8c-4e67-a2b8-24b8a494876a)
+![image](https://github.com/user-attachments/assets/0a33adb9-0d52-4e50-9931-919926831335)  
+For comm large it can be seen that for the L2 cache misses, there is a slight change in cache misses as the processes increases aside from the cases for sorted input but mainly, there is a notable increase in cache misses as the array size increases  
 
 #### Mrinal : Sample Sort
-Due to issues with Grace and the queue, I could not get all 280 Cali files. I was able to get data for all the random sorted 2^16 2^18 2^20 and 2^22. For the other types of data and sizes, the jobs were stuck in the queue or had network issues, so I will fix the issues and finish them before we present. 
+<img width="804" alt="image" src="https://github.com/user-attachments/assets/65ca37ea-6042-4da5-9d8e-d3f8579693af">
+
+For the sample sort algorithm, the comp takes the most time, specifically the comp large portion, as each bucket has to sort and calculate its pivots.
+
+<img width="911" alt="image" src="https://github.com/user-attachments/assets/5789b104-bf1a-43fb-8e99-bd4fe9f6e4fa">
+<img width="911" alt="image" src="https://github.com/user-attachments/assets/2093ff31-4cfe-4810-8854-92a371171d7e">
+<img width="911" alt="image" src="https://github.com/user-attachments/assets/5528d02e-669d-4988-b4d1-c7d2791cf7ad">
+<img width="911" alt="image" src="https://github.com/user-attachments/assets/ab8ec459-51e4-4ce6-ab00-5c248028cfc6">
+<img width="911" alt="image" src="https://github.com/user-attachments/assets/55a3b6bb-5734-4f9a-8cf4-2a43779b0c60">
+<img width="911" alt="image" src="https://github.com/user-attachments/assets/4f86a6be-8461-452c-8d79-a7dae593f2f0">
+<img width="911" alt="image" src="https://github.com/user-attachments/assets/8e5ddea1-0d8d-42df-9b91-ae5015d40c13">
+
+Here are the strong scaling graphs for the main section. As you can see, the total run time increases with more processes until around an array size of 2^24. After 2^24, the total run time decreases exponentially the more processors the algorithm has. There does not seem to be a difference in run time based on the input type; however, random and 1% perturbed seem to have higher spikes than sorted and reverse sorted. This might be because sorted and reverse sorted do not need much time picking pivots and sorting buckets.
+
+<img width="911" alt="image" src="https://github.com/user-attachments/assets/bad3e4a8-b2cb-451f-99b0-71cc2dea95fc">
+<img width="911" alt="image" src="https://github.com/user-attachments/assets/33894977-b6ae-40d3-b2f2-56c82f6e34f6">
+<img width="911" alt="image" src="https://github.com/user-attachments/assets/3dbc4623-28e9-4953-984c-c7b1958f51b4">
+<img width="911" alt="image" src="https://github.com/user-attachments/assets/4af27219-99b4-43bb-8db3-9942ab4c3c89">
+
+Here are the strong scaling speedup graphs for the main section. For these graphs, a similar trend seems to be in all of them where the speedup remains constant until an input size of 2^26, where the speedup increases with the number of processors. All the graphs also seem to have the speedup decrease when there are 1024 processors. These trends might be because of communication and synchronization costs at higher processor counts.
+
+<img width="911" alt="image" src="https://github.com/user-attachments/assets/7c155144-92e0-408e-9bd1-b84d1fd65d87">
+<img width="911" alt="image" src="https://github.com/user-attachments/assets/42708652-7c3a-486b-ab93-987d7ae3a4d2">
+<img width="911" alt="image" src="https://github.com/user-attachments/assets/8ba677c8-c9d3-4cce-8ad3-7bbcd6af11da">
+<img width="911" alt="image" src="https://github.com/user-attachments/assets/287d2b9a-91c6-463a-a1ca-65f28f4ce6d1">
+
+Here are the weak scaling graphs for the main section. The same general trend can be seen in all these graphs, increasing exponentially until 64 processors and then spiking at 128 processors. This trend might be explained by increased communication at higher processor counts, increasing the time taken.
+
+<img width="911" alt="image" src="https://github.com/user-attachments/assets/96e0abfc-c050-433c-bb3c-120e0674a20e">
+<img width="911" alt="image" src="https://github.com/user-attachments/assets/d3cce0c9-2234-4a30-a66c-befda7bbbd72">
+<img width="911" alt="image" src="https://github.com/user-attachments/assets/ae0e1208-26af-4275-88b3-7ba9e4f8a5ff">
+<img width="911" alt="image" src="https://github.com/user-attachments/assets/2c3224a1-4611-4068-8ee3-cfe8c2bebda4">
+<img width="911" alt="image" src="https://github.com/user-attachments/assets/73a44684-175c-4fce-877a-422040485b56">
+<img width="911" alt="image" src="https://github.com/user-attachments/assets/6445eb9a-64f9-4466-b169-8a30cc9641c2">
+<img width="911" alt="image" src="https://github.com/user-attachments/assets/fc720e0e-cc69-49c7-9eae-e10286190097">
+
+Here are the strong scaling graphs for the comp large section. For the input sizes of 2^16 and 2^18, it can be seen that the time spikes at 512 processors and higher. In the 2^18 graph, it can also be seen that 2 and 4 processors also take a lot of time to compute. After these two input sizes the rest of the graphs follow the same trend of exponentially decreasing the more processors the algorithm has. This is because it takes more time to perform the computations to pick pivots the fewer processors you have unless you have a low input size.
+
+<img width="911" alt="image" src="https://github.com/user-attachments/assets/bff816b0-c123-4aa5-baa8-b3afc44456e7">
+<img width="911" alt="image" src="https://github.com/user-attachments/assets/0520d2c5-ff77-4e29-8629-4bbc8459eec1">
+<img width="911" alt="image" src="https://github.com/user-attachments/assets/8366fdd6-1dfc-4b8b-8dc1-ac3f3c7b3e18">
+<img width="911" alt="image" src="https://github.com/user-attachments/assets/aa7233cc-1674-46bf-8fa3-6aba0320391a">
+
+Here are the strong scaling speedup graphs for the comp large section. All these graphs follow the ideal speedup trend where the speedup increases with more processors added. However, the speedup does flatten for an input size of 2^16 and 2^18. For the random input type, the speedup for each input size is more spread out than all the other input types. This might be because the random input types need more computations to select pivots.
+
+<img width="911" alt="image" src="https://github.com/user-attachments/assets/c6a36c52-d793-4067-a7e2-577183d935d4">
+<img width="911" alt="image" src="https://github.com/user-attachments/assets/cfb425f3-8b98-4d84-bfa3-982f1f041535">
+<img width="911" alt="image" src="https://github.com/user-attachments/assets/b0c099eb-3956-4736-af98-28819986721d">
+<img width="911" alt="image" src="https://github.com/user-attachments/assets/60c7e17f-2f28-4669-8061-6996433dc555">
+
+Here are the weak scaling graphs for the comp large section. All the graphs follow the same trend of exponentially increasing with processor size regardless of input type. This trend might be explained by the increasing number of computations done the higher the processor count.
+
+<img width="911" alt="image" src="https://github.com/user-attachments/assets/7be37df1-1a30-4494-ac18-35f844d4ed38">
+<img width="911" alt="image" src="https://github.com/user-attachments/assets/6a95dfe5-e7d9-4a99-bbac-2878bd8e992e">
+<img width="911" alt="image" src="https://github.com/user-attachments/assets/d3ef91be-01c3-4d89-824e-001f41fb4b0c">
+<img width="911" alt="image" src="https://github.com/user-attachments/assets/71570eca-56c2-4e38-af00-b818de276ce2">
+<img width="911" alt="image" src="https://github.com/user-attachments/assets/ef676f56-38a1-4c6b-9c2a-f68bb8e1923e">
+<img width="911" alt="image" src="https://github.com/user-attachments/assets/a06b422d-1908-484a-8c0d-bf68b1e23700">
+<img width="911" alt="image" src="https://github.com/user-attachments/assets/5fcfea47-54e0-4530-8566-8590d984d066">
+
+Here are the strong scaling graphs for the comm section. For the input size of 2^16, you can see that the time generally increases the more processors there are, with a massive spike at 256 processors for the reverse sorted input type. This is most likely because it is a bad run, as it does not follow the trends set by the other runs. The 2^18 input size follows the same trend with a spike at 64 processors for random and sorted input types. This also might be due to a bad run, as no other spikes follow. The 2^20 input size has a quadratic trend as the lower the number of processors, the higher the time, and the higher the number of processors, the higher the time. There is also a spike at 128 processors for the sorted input type, probably resulting from a bad run. The rest of the input sizes all follow the same general trend of the time exponentially decreasing with the number of processors, with 2^20 having a spike at 128 processors for the random input type. This is most likely because it takes less to communicate the pivots and data with more processors, the higher the input size. 
+
+<img width="911" alt="image" src="https://github.com/user-attachments/assets/d223d77b-e0de-4bbf-90da-93584307897a">
+<img width="911" alt="image" src="https://github.com/user-attachments/assets/f8eaa3a8-eb30-4349-b5cf-226e501d1b5e">
+<img width="911" alt="image" src="https://github.com/user-attachments/assets/4f041a7a-2ef0-43f0-9ba5-fac66dc4dd33">
+<img width="911" alt="image" src="https://github.com/user-attachments/assets/cdb60d67-17db-4a64-8e9a-35843ab23bdb">
+
+Here are the strong scaling speedup graphs for the comm section. The speedup increases for the random input type until around 64 processors and then decreases/remains constant. This is most likely because random runs might not scale properly with more processors. The speedup decreases the more processors there are for the sorted input type, likely because the more processors there are, the more time it takes to communicate between each processor, even though there isn't a reason to communicate since it is already sorted. The speedup for the 1% perturbed seems to follow the same trend as the speedup for the main. The reverse sorted input type speedup follows a positive quadratic curve for lower input sizes and a negative quadratic curve for higher input sizes. There isn't really an explanation for why this is, and it might be due to how much communication needs to be done between processors based on the input size. 
+
+<img width="911" alt="image" src="https://github.com/user-attachments/assets/9f0e2409-fae4-4903-82ed-e7136a002608">
+<img width="911" alt="image" src="https://github.com/user-attachments/assets/b84c4660-3682-4ba4-9a42-28979f7114fe">
+<img width="911" alt="image" src="https://github.com/user-attachments/assets/582efc2a-6740-4777-80cf-869361e74a98">
+<img width="911" alt="image" src="https://github.com/user-attachments/assets/cb911897-1abe-4ce8-8a30-f5809223fc4a">
+
+Here are the weak scaling graphs for the comm section. They all seem to follow the same trends as the main and comp large sections. This might be due to how much overhead there is when processors need to communicate with each other. That would add extra time the more processors there are, which might not scale linearly.
+
+<img width="911" alt="image" src="https://github.com/user-attachments/assets/9d37903e-1936-42f4-8169-1c3dcb737924">
+<img width="911" alt="image" src="https://github.com/user-attachments/assets/9cbef80c-8b84-41f2-9326-fbeb2a5fcd7d">
+<img width="911" alt="image" src="https://github.com/user-attachments/assets/9fc3a7f0-42ed-409f-919d-ff8ba429d106">
+<img width="911" alt="image" src="https://github.com/user-attachments/assets/27c2ebfc-82c3-426d-90b1-2e2f625ba595">
+<img width="911" alt="image" src="https://github.com/user-attachments/assets/df042b6c-9d03-404b-8c40-17fb16abd491">
+<img width="911" alt="image" src="https://github.com/user-attachments/assets/a4a09659-032d-4d49-a080-d3de6c32547c">
+
+Here are the L1 and L2 cache miss graphs for the main section. For both the L1 and L2 cache, the number of processors seems to decrease the amount of cache misses regardless of input type. There seems to be a huge spike in the number of cache misses for the L2 cache in a 2^27 array with 16 processors with a sorted input. However, this is probably the result of a bad run, as the trend does not repeat with other graphs. 
+
+<img width="911" alt="image" src="https://github.com/user-attachments/assets/bc90c74c-597f-43b2-86a7-838e580f8b6b">
+<img width="911" alt="image" src="https://github.com/user-attachments/assets/d9c428c1-faba-47fd-be21-dbce1172f42e">
+<img width="911" alt="image" src="https://github.com/user-attachments/assets/d1455d9f-46b7-492a-81f7-8549881a89ce">
+<img width="911" alt="image" src="https://github.com/user-attachments/assets/12dac682-7497-4b4e-a1f7-ef9b45cb445b">
+<img width="911" alt="image" src="https://github.com/user-attachments/assets/fb09da09-3d77-4fdb-8429-ed007f970b85">
+<img width="911" alt="image" src="https://github.com/user-attachments/assets/3428ad16-cbd1-43e6-a56f-f981d106713b">
+
+Here are the L1 and L2 cache miss graphs for the comp_large section. These graphs follow the same trend as the graphs in the main section, with the number of misses decreasing with the number of processors and the number of misses in total increasing with higher input size. There is also the same spike as before, probably the result of a bad run. 
+
+<img width="911" alt="image" src="https://github.com/user-attachments/assets/72e5b032-4879-4383-a547-d94bb6fbc5da">
+<img width="911" alt="image" src="https://github.com/user-attachments/assets/389bdfa1-b35b-4023-8590-3d8a7b8dc345">
+<img width="911" alt="image" src="https://github.com/user-attachments/assets/6039398f-1147-4c0c-9260-813162790426">
+<img width="911" alt="image" src="https://github.com/user-attachments/assets/2857ab5a-e900-46e4-b9c9-96f8ba1c7a02">
+<img width="911" alt="image" src="https://github.com/user-attachments/assets/5dbd90c6-d92e-462c-99ed-a9acc671da46">
+<img width="911" alt="image" src="https://github.com/user-attachments/assets/d033fa8e-ad32-41d0-8c3b-afdba9ec33e0">
+
+Here are the L1 and L2 cache miss graphs for the comm section. These graphs differ from the previous two sections as the graphs show a slight increase in the number of misses the more processors there are. This might be because there are more communication events the more processors there are, which increases the chances of there being a cache miss. There seems to be roughly the same amount of misses, whether L1 or L2.
