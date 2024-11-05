@@ -332,30 +332,42 @@ Below are the L1 and L2 cache misses per rank for each input type. Shown in the 
 <img width="921" alt="Screenshot 2024-11-04 at 7 01 34 PM" src="https://github.com/user-attachments/assets/03853d40-8cf7-421c-b59f-fff8efae4d08">
 
 #### Nathan: Merge Sort
-![image](https://github.com/user-attachments/assets/5c78a834-bea9-49c8-a2eb-a5a3df717f6b)
-For merge sort, the comp_large and comm_large sections are the same as comp and comm respectively since all the communication and computation involved fall under comp_large and comm_large
+![image](https://github.com/user-attachments/assets/5c78a834-bea9-49c8-a2eb-a5a3df717f6b)  
+For merge sort, the comp_large and comm_large sections are the same as comp and comm respectively since all the communication and computation involved fall under comp_large and comm_large  
 
 ![image](https://github.com/user-attachments/assets/d6e99286-be3b-4fac-b053-8ad20f0ffff2)
-![image](https://github.com/user-attachments/assets/ad738112-7205-4b62-b10c-e0e27b85f6de)
-For the 2^16 array size, you can see that though the comp time decreases as number of processes increases, the comm time also increases causing the overall main time to trend toward increasing as number of processes increases as well due to overhead and all times are similar regardless of sorting type
+![image](https://github.com/user-attachments/assets/ad738112-7205-4b62-b10c-e0e27b85f6de)  
+For the 2^16 array size, you can see that though the comp time decreases as number of processes increases, the comm time also increases causing the overall main time to trend toward increasing as number of processes increases as well due to overhead and all times are similar regardless of sorting type  
 ![image](https://github.com/user-attachments/assets/68a9f817-ea13-4344-8d3e-ee3422997155)
-![image](https://github.com/user-attachments/assets/bfadfe69-9b2f-4ec9-85a5-4442f79a5ad9)
-For the 2^18 array size, you can see that though the comp time decreases as number of processes increases, the comm time also increases causing the overall main time to trend toward increasing as number of processes increases as well due to overhead and all times are similar regardless of sort type
+![image](https://github.com/user-attachments/assets/bfadfe69-9b2f-4ec9-85a5-4442f79a5ad9)  
+For the 2^18 array size, you can see that though the comp time decreases as number of processes increases, the comm time also increases causing the overall main time to trend toward increasing as number of processes increases as well due to overhead and all times are similar regardless of sort type  
 ![image](https://github.com/user-attachments/assets/0b5fdd89-37bc-49b6-a323-35d5cb5d7747)
-![image](https://github.com/user-attachments/assets/c0968bff-d9de-4039-8cc4-0053b3a152ca)
-For the 2^20 array size, you can see that the comp time decreases as the number of processes increases and the comm time remains somewhat constant until an increase near the larger numbers of processors which still causes the overall main time to generally trend toward increasing as the number of processes increases as well due to overhead. For this array size, the comm times for random and 1_perc_perturbed sorting types were greater
+![image](https://github.com/user-attachments/assets/c0968bff-d9de-4039-8cc4-0053b3a152ca)  
+For the 2^20 array size, you can see that the comp time decreases as the number of processes increases and the comm time remains somewhat constant until an increase near the larger numbers of processors which still causes the overall main time to generally trend toward increasing as the number of processes increases as well due to overhead. For this array size, the comm times for random and 1_perc_perturbed sorting types were greater  
 ![image](https://github.com/user-attachments/assets/24ef18d3-903d-4bef-be17-9b6fa68e3232)
 ![image](https://github.com/user-attachments/assets/f514f037-3e46-419f-800e-8062e39908f0)
-For the 2^22 array size, you can see that as the number of processes increases, the comp time increases and the comm time remains somewhat constant and since the decrease in comp time is more significant than the overhead, the total main time trends towards decreasing as the number of processes increases. For this array size, the comm times for random and 1_perc_perturbed sort types are greater.
+For the 2^22 array size, you can see that as the number of processes increases, the comp time increases and the comm time remains somewhat constant and since the decrease in comp time is more significant than the overhead, the total main time trends towards decreasing as the number of processes increases. For this array size, the comm times for random and 1_perc_perturbed sort types are greater.  
 ![image](https://github.com/user-attachments/assets/96738e4d-cff5-47dd-b456-2f0847dbcd21)
-![image](https://github.com/user-attachments/assets/0a3a9233-e062-4315-ba72-3975b74426a3)
-For the 2^24 array size, you can see that as the number of processes increases, the comp time increases and the comm time remains somewhat constant and since the decrease in comp time is more significant than the overhead, the total main time trends towards decreasing as the number of processes increases. For this array size, the comm times for random and 1_perc_perturbed sort types are greater.
+![image](https://github.com/user-attachments/assets/0a3a9233-e062-4315-ba72-3975b74426a3)  
+For the 2^24 array size, you can see that as the number of processes increases, the comp time increases and the comm time remains somewhat constant and since the decrease in comp time is more significant than the overhead, the total main time trends towards decreasing as the number of processes increases. For this array size, the comm times for random and 1_perc_perturbed sort types are greater.  
 ![image](https://github.com/user-attachments/assets/61d64855-80b2-48f5-9f01-040d9a9eaaa7)
-![image](https://github.com/user-attachments/assets/8aaf6ae7-0edb-4ad2-abe5-02f5b753d1a5)
-For the 2^26 array size, you can see that as the number of processes increases, the comp time increases and the comm time remains somewhat constant and since the decrease in comp time is more significant than the overhead, the total main time trends towards decreasing as the number of processes increases. For this array size, the comm times for random and 1_perc_perturbed sort types are greater.
+![image](https://github.com/user-attachments/assets/8aaf6ae7-0edb-4ad2-abe5-02f5b753d1a5)  
+For the 2^26 array size, you can see that as the number of processes increases, the comp time increases and the comm time remains somewhat constant and since the decrease in comp time is more significant than the overhead, the total main time trends towards decreasing as the number of processes increases. For this array size, the comm times for random and 1_perc_perturbed sort types are greater.  
 ![image](https://github.com/user-attachments/assets/0be2b578-7597-40d8-a125-f27ce2796d7b)
-![image](https://github.com/user-attachments/assets/acd70b16-cf3a-4269-aa95-96b4a3e03fd8)
-For the 2^28 array size, you can see that as the number of processes increases, the comp time increases and the comm time remains somewhat constant and since the decrease in comp time is more significant than the overhead, the total main time trends towards decreasing as the number of processes increases. For this array size, the comm times for random and 1_perc_perturbed sort types are greater.
+![image](https://github.com/user-attachments/assets/acd70b16-cf3a-4269-aa95-96b4a3e03fd8)  
+For the 2^28 array size, you can see that as the number of processes increases, the comp time increases and the comm time remains somewhat constant and since the decrease in comp time is more significant than the overhead, the total main time trends towards decreasing as the number of processes increases. For this array size, the comm times for random and 1_perc_perturbed sort types are greater.  
+![image](https://github.com/user-attachments/assets/964271fa-3ab2-4a01-bcad-c5280c3663d5)
+![image](https://github.com/user-attachments/assets/d143bcb6-f38e-4899-9af7-3ed72e1089c6)
+![image](https://github.com/user-attachments/assets/0204d7f1-63a9-4f3a-9d73-e66402cb3009)  
+ For the weak scaling plot for comp, the graph follows an increasing concave up trend for all sorting types though the times for random and 1_perc_perturbed are a bit higher. This trend is not ideal as the weak scaling should be about linear in nature and the difference of the plots from the ideal linear trend is probably due to issues with overhead in implementation  
+![image](https://github.com/user-attachments/assets/133900ea-edb2-412d-b826-22f24c256805)
+![image](https://github.com/user-attachments/assets/2c5b6a1a-ed2e-4cdd-9df2-cdf7bc334b18)
+![image](https://github.com/user-attachments/assets/83897dd2-75f7-4590-926a-752a36036523)  
+ For the weak scaling plot for comm, the graph follows an increasing concave up trend for all sorting types though the times for random and 1_perc_perturbed are noticeably higher especially at the highest numbers of processes. This trend is not ideal as the weak scaling should be about linear in nature and the difference of the plots from the ideal linear trend is probably due to issues with overhead in implementation  
+![image](https://github.com/user-attachments/assets/cea2002d-7d86-4f37-800f-2434a7aa45a4)
+![image](https://github.com/user-attachments/assets/2acbbb42-6612-465d-b958-14e7039391af)
+![image](https://github.com/user-attachments/assets/cb6a6858-4ecc-429b-ac52-f0d768cbab31)  
+ For the weak scaling plot for main, the graph follows an increasing concave up trend for all sorting types though the times for random and 1_perc_perturbed are noticeably higher especially at the highest numbers of processes. This trend is not ideal as the weak scaling should be about linear in nature and the difference of the plots from the ideal linear trend is probably due to issues with overhead in implementation  
 
 #### Mrinal : Sample Sort
 Due to issues with Grace and the queue, I could not get all 280 Cali files. I was able to get data for all the random sorted 2^16 2^18 2^20 and 2^22. For the other types of data and sizes, the jobs were stuck in the queue or had network issues, so I will fix the issues and finish them before we present. 
