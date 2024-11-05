@@ -324,15 +324,24 @@ For the Radix Sort algorithm, the comm_large and comp_large act the same as comm
 
 Below are the strong scaling graphs for the main section. Due to the implementation, the algorithm’s total run time increases linearly for the two smaller array sizes as the algorithm parallelizes. For the larger array sizes, as the number of processes increases, the total main time increases exponentially. As the array sizes increase, the different types of user inputs also perform more and more similarly. 
 
-<img width="892" alt="Screenshot 2024-11-04 at 6 47 24 PM" src="https://github.com/user-attachments/assets/8f42d367-5501-47e9-8961-acc472ef0067">
-<img width="883" alt="Screenshot 2024-11-04 at 6 47 20 PM" src="https://github.com/user-attachments/assets/e770f3e2-c13f-4b9c-aca5-7b0ae124dd7a">
-<img width="858" alt="Screenshot 2024-11-04 at 6 47 15 PM" src="https://github.com/user-attachments/assets/30d6dcee-16af-48cb-b8a4-18b6977ae642">
-<img width="888" alt="Screenshot 2024-11-04 at 6 47 10 PM" src="https://github.com/user-attachments/assets/4a6b7c6b-83d2-42a9-9fbb-0e0dc3e8337c">
-<img width="901" alt="Screenshot 2024-11-04 at 6 47 06 PM" src="https://github.com/user-attachments/assets/89f786a7-23b5-4a50-be87-daba12cc2289">
-<img width="890" alt="Screenshot 2024-11-04 at 6 47 01 PM" src="https://github.com/user-attachments/assets/7652ebe8-21c0-4286-beac-124a5fe12d2b">
-<img width="866" alt="Screenshot 2024-11-04 at 6 46 57 PM" src="https://github.com/user-attachments/assets/ccadc353-f3b0-4407-b9f6-b61a0e9ba5d4">
+![image](https://github.com/user-attachments/assets/8f42d367-5501-47e9-8961-acc472ef0067)
+
+![image](https://github.com/user-attachments/assets/8f42d367-5501-47e9-8961-acc472ef0067)
+
+![image](https://github.com/user-attachments/assets/e770f3e2-c13f-4b9c-aca5-7b0ae124dd7a)
+
+![image](https://github.com/user-attachments/assets/30d6dcee-16af-48cb-b8a4-18b6977ae642)
+
+![image](https://github.com/user-attachments/assets/4a6b7c6b-83d2-42a9-9fbb-0e0dc3e8337c)
+
+![image](https://github.com/user-attachments/assets/89f786a7-23b5-4a50-be87-daba12cc2289)
+
+![image](https://github.com/user-attachments/assets/7652ebe8-21c0-4286-beac-124a5fe12d2b)
+
+![image](https://github.com/user-attachments/assets/ccadc353-f3b0-4407-b9f6-b61a0e9ba5d4)
 
 The graphs below are the strong scaling graphs for communication time. For the 2^16 and 2^18 array sizes, the communication time stays generally constant until 256 processes and increases significantly for 512 and 1024 processes. The random array performed the best for those sizes. 
+
 <img width="904" alt="Screenshot 2024-11-04 at 6 50 18 PM" src="https://github.com/user-attachments/assets/5dfc8b4f-afd6-4162-a4ba-808c20dcb9ea">
 <img width="894" alt="Screenshot 2024-11-04 at 6 50 13 PM" src="https://github.com/user-attachments/assets/270b296f-6df2-4c17-95ed-5de88b12badf">
 
