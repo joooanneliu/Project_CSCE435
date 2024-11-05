@@ -240,8 +240,8 @@ I wrote the implementation of sample sort in sample sort.cpp, which is inside th
 ### 4. Performance Evaluation
 Each of the performance evaluation reports and respective plots are separated by sort. The links to them are listed below. 
 #### Simon: Bitonic Sort
-#### Simon: Bitonic Sort
 ![image](https://github.com/user-attachments/assets/764a1385-c57b-4c73-a27e-faab460dcda4)
+
 Comp takes a large majority of the time, which could be due to the poor implementation of the swapping mechanic necessary for bitonic sort. This further explains why in future graphs, the speed of computation remains constant over the amount of processes, as implementation bottlenecks the algorithm's predicted performance.
 
 ##### Times for 2^16 Array Size
@@ -273,6 +273,8 @@ Comp takes a large majority of the time, which could be due to the poor implemen
 ![image](https://github.com/user-attachments/assets/499ab3a3-8c92-4109-a9c0-8818a78a8fe4)
 ![image](https://github.com/user-attachments/assets/d6b685c0-8419-4f58-93f9-4c53fb046df4)
 
+In many of the cases shown above, one can see that the main time is increasing as both computation and communication times grow with the number of processors. This growth in computation time, instead of the expected decrease or stability, is most likely due to bottlenecks from ab inefficient implementation. Poorly optimized code may introduce redundant calculations or excessive synchronization points, which may negate the benefits of increasing processors. As expected we can see that the time for communication increases, due to the communication overhead. Together, the inefficient computation and rising communication costs lead to a significant increase in the main execution time, indicating that the scalability of the implementation could be improved.
+
 ##### Weak Scaling Main
 ![image](https://github.com/user-attachments/assets/5141aa54-9e13-403b-bd03-89a8471a0cf7)
 ![image](https://github.com/user-attachments/assets/f4ce349a-3c06-48f5-be31-fffb3ab4ff97)
@@ -289,11 +291,15 @@ Comp takes a large majority of the time, which could be due to the poor implemen
 ![image](https://github.com/user-attachments/assets/cfd153b2-1684-42db-ae02-af7925a8c74f)
 ![image](https://github.com/user-attachments/assets/07075a5d-5eb8-497a-a32a-ea5f832160ac)
 
+For weak scaling, it's expected that the output would be constant, however this implementation shows that greates exponential increase out of all the other sorts. This could be due to various bottlenecks and overheads in the algorithm. As the number of processes grows, so does the communication overhead, as each process may need to frequently exchange data with other. A faulty implementation could lead to the repeating of steps in the algorithm, negating the effects of paralellization in it's entirety.
+
 ##### Strong Scaling
 ![image](https://github.com/user-attachments/assets/e7f60a55-217d-4c5c-a8d7-cb9373fb8d7b)
 ![image](https://github.com/user-attachments/assets/f7a265b1-fd24-4ec2-bed4-b85d30ba598e)
 ![image](https://github.com/user-attachments/assets/50b9f68d-1ff1-4eda-ba97-806838b3bedc)
 ![image](https://github.com/user-attachments/assets/8eef2efe-0d21-4727-bd6c-0e81576a355b)
+
+These graphs shows that generally, for smaller arrays liek 2^16, one can see a rapid decrease in execution time as the number of processes increases, showing that a relatively low process count creates optimal speedup. However, for larger arrays, the speedup is less pronounced, with execution times initially decreasing but then plateauing or even increasing slightly as more processes are added. This is not the expected behavior, as it would be assumed that increase in processors would lead to an increase in speedup for larger array sizes. (as computation time is dramatically shortened). These graphs however show that while parallelization improves performance up to a point, larger arrays face diminishing returns or increased overhead at higher process counts, likely due to poor implementation.
 
 ##### Cache Misses Main
 ![image](https://github.com/user-attachments/assets/9b653e97-069f-40b8-bf76-36cc12e3a417)
@@ -309,6 +315,8 @@ Comp takes a large majority of the time, which could be due to the poor implemen
 ![image](https://github.com/user-attachments/assets/280d0d00-1d3b-468a-a354-a911ca5dbb5b)
 ![image](https://github.com/user-attachments/assets/b2ab7b29-984f-4af4-9fa5-2204b1fe862c)
 ![image](https://github.com/user-attachments/assets/bce99de0-c542-425d-813e-089bdb88b8da)
+
+The graphs show a clear trend for the L2 and L1 cache misses as the number of processes increases for sorted input data. The amount of Total L2 cache misses rises incredibly steeply with the increase in the number of processes at a magnitude far greater than the other lines, showing that the overall cache demand intensifies as more processes are used. The other lines shows that the cache behavior per individual rank doesn't vary very much as more ranks are added. This pattern implies that the parallelization strategy is effective in distributing cache accesses evenly across ranks, but the collective cache demand scales with the number of processes, potentially leading to increased cache contention at higher process counts. This may not be indicative of properly created algorithms, as it is a given that this implementation is flawed in various ways. Such as the Comp.
 
 #### Joanne: Radix Sort
 <img width="678" alt="Screenshot 2024-11-04 at 6 48 07 PM" src="https://github.com/user-attachments/assets/1c97d951-2537-43f4-8484-c8b7e1984e09">
